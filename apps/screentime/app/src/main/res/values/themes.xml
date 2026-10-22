@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ScreenTime" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:colorBackground">#0B0B0F</item>
+        <item name="android:windowBackground">#0B0B0F</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:colorAccent">#4FA3FF</item>
+    </style>
+
+    <style name="Theme.ScreenTime.Fullscreen" parent="Theme.ScreenTime">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">#000000</item>
+    </style>
+
+    <!-- Translucent so the app being watched shows faintly behind the big warning. -->
+    <style name="Theme.ScreenTime.Warning" parent="Theme.ScreenTime">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+</resources>

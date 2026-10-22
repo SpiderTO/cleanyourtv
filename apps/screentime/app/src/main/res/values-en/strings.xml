@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TV Time</string>
+    <string name="notif_running">Watching your child\'s TV time</string>
+
+    <string name="warn_minutes_left">%1$d minutes left</string>
+    <string name="warn_sub">Today\'s TV time is almost up</string>
+    <string name="time_up_title">Time\'s up</string>
+    <string name="time_up_body">You\'ve used all of today\'s time. Come back tomorrow.</string>
+    <string name="curfew_title">Past bedtime</string>
+    <string name="curfew_body">After %1$02d:00 the chosen apps are off. A parent can enter the PIN to continue.</string>
+    <string name="enter_pin_to_continue">Enter the parent PIN to continue</string>
+    <string name="back_home">Back to Home</string>
+
+    <string name="enter_pin">Enter your 4-digit PIN</string>
+    <string name="set_pin">Set a 4-digit PIN</string>
+    <string name="confirm_pin">Enter the PIN again to confirm</string>
+    <string name="pin_wrong">Wrong PIN, try again</string>
+    <string name="pin_mismatch">PINs did not match, try again</string>
+    <string name="pin_hint_remote">Press the number keys on the remote, or pick keys on screen with the arrows</string>
+    <string name="backspace">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="status_parent">Now: parent mode (no limit until the TV sleeps)</string>
+    <string name="status_kids">Now: kids mode</string>
+    <string name="used_today">Used %1$s of %2$s today</string>
+    <string name="unlock_parent">Unlock parent mode</string>
+    <string name="lock_now">Lock back to kids mode</string>
+    <string name="open_settings">Settings (PIN required)</string>
+    <string name="give_more_time">Give more time today (reset used time)</string>
+    <string name="first_run_title">First run: set a parent PIN</string>
+    <string name="need_usage_access">Usage access not granted yet; timing is off. Grant it over ADB and reopen.</string>
+
+    <string name="settings_title">TV Time settings</string>
+    <string name="change_pin">Change PIN</string>
+    <string name="daily_limit_label">Minutes per day</string>
+    <string name="curfew_label">Curfew hour (0–23, 0 = off)</string>
+    <string name="counted_apps_label">Counted apps (tick the ones to limit)</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+
+    <string name="minutes">min</string>
+</resources>

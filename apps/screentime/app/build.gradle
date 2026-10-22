@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.gathin.screentime'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.gathin.screentime'
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+        resConfigs 'th', 'en'
+    }
+
+    buildTypes {
+        release {
+            // Sideloaded over ADB, never published: sign with the debug key so it installs over a debug build.
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // Sideloaded debug-style APK: don't let lint's NewApi/deprecation notes fail the build.
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+dependencies {
+    // Plain framework app, no AndroidX needed: keeps it tiny for a 1 GB-RAM TV.
+}

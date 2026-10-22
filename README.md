@@ -92,7 +92,7 @@ Tested lists from contributors, one folder per model in [`examples/`](examples/)
 **TCL** 34 · **Sony** 19 · **Xiaomi** 19 · **Philips** 8 · **Hisense** 7 · **Amazon Fire TV** 5 ·
 **Panasonic** 3 · **Skyworth** 3 · **BenQ** 2 · **CHiQ** 2 · **Google** 2 · **Haier** 2 · **Hitachi** 2 ·
 **Kalley** 2 · **NVIDIA Shield** 2 · **OnePlus** 2 · **onn** 2 · **Redmi** 2 · **Thomson** 2 · **Toshiba** 2 · **Vu** 2 ·
-AiPro2K · AIWA · Artel · Cecotec · Challenger · Compac · Dialog · EKO · FFalcon · Freebox · Insignia Fire TV ·
+Aconatic · AiPro2K · AIWA · Artel · Cecotec · Challenger · Compac · Dialog · EKO · FFalcon · Freebox · Insignia Fire TV ·
 JVC · Kogan · Motorola · MTC · Polytron · PRISM+ · RCA · Sankey · SANYO · SHARP · Tele System · Verizon ·
 Vidda · Vision ·
 BYINTEK, JMGO, Portronics, Stellamore, Wanbo and XGIMI projectors
@@ -102,6 +102,7 @@ BYINTEK, JMGO, Portronics, Stellamore, Wanbo and XGIMI projectors
 
 | TV | OS |
 |---|---|
+| Aconatic 43HS600AN (KTC, stanford, MediaTek mt5867), Thailand | Android TV 14 |
 | AiPro2K (Expressluck, dongnae; Changhong AI PONT family) | Android TV 14 |
 | AIWA AI PONT SA (Changhong, osaka, ISDB86AW) | Google TV 14 |
 | Amazon Fire TV 50" 4K smart TV (AFTTIFF43, brandenburg) | Fire OS 7.7.1.7 / Android 9 |

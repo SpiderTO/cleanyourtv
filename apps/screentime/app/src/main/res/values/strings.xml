@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">เวลาดูทีวี</string>
+    <string name="notif_running">กำลังดูแลเวลาดูทีวีของลูก</string>
+
+    <!-- warning / lock -->
+    <string name="warn_minutes_left">เหลือเวลาอีก %1$d นาที</string>
+    <string name="warn_sub">ใกล้หมดเวลาดูทีวีของวันนี้แล้ว</string>
+    <string name="time_up_title">หมดเวลาแล้ว</string>
+    <string name="time_up_body">วันนี้ดูครบตามเวลาที่กำหนดแล้ว พรุ่งนี้ค่อยดูต่อนะ</string>
+    <string name="curfew_title">เลยเวลานอนแล้ว</string>
+    <string name="curfew_body">หลัง %1$02d:00 น. งดใช้แอปที่กำหนด ถ้าจะดูต่อให้ผู้ปกครองใส่ PIN</string>
+    <string name="enter_pin_to_continue">ใส่ PIN ผู้ปกครองเพื่อดูต่อ</string>
+    <string name="back_home">กลับหน้าหลัก</string>
+
+    <!-- pin -->
+    <string name="enter_pin">ใส่ PIN 4 หลัก</string>
+    <string name="set_pin">ตั้ง PIN 4 หลัก</string>
+    <string name="confirm_pin">ใส่ PIN อีกครั้งเพื่อยืนยัน</string>
+    <string name="pin_wrong">PIN ไม่ถูกต้อง ลองใหม่</string>
+    <string name="pin_mismatch">PIN ไม่ตรงกัน ลองใหม่</string>
+    <string name="pin_hint_remote">กดปุ่มตัวเลขบนรีโมท หรือเลือกแป้นบนจอด้วยลูกศร</string>
+    <string name="backspace">ลบ</string>
+    <string name="cancel">ยกเลิก</string>
+
+    <!-- main -->
+    <string name="status_parent">ตอนนี้: โหมดผู้ปกครอง (ไม่จำกัดเวลา จนทีวีเข้า standby)</string>
+    <string name="status_kids">ตอนนี้: โหมดเด็ก</string>
+    <string name="used_today">วันนี้ใช้ไปแล้ว %1$s จาก %2$s</string>
+    <string name="unlock_parent">ปลดล็อกโหมดผู้ปกครอง</string>
+    <string name="lock_now">ล็อกกลับโหมดเด็ก</string>
+    <string name="open_settings">ตั้งค่า (ต้องใส่ PIN)</string>
+    <string name="give_more_time">ให้เวลาเพิ่มวันนี้ (รีเซ็ตเวลาที่ใช้ไป)</string>
+    <string name="first_run_title">ตั้งค่าครั้งแรก: ตั้ง PIN ผู้ปกครอง</string>
+    <string name="need_usage_access">ยังไม่ได้รับสิทธิ์ดูการใช้งานแอป การจับเวลาจะยังไม่ทำงาน ให้สิทธิ์ผ่าน ADB แล้วเปิดแอปใหม่</string>
+
+    <!-- settings -->
+    <string name="settings_title">ตั้งค่า เวลาดูทีวี</string>
+    <string name="change_pin">เปลี่ยน PIN</string>
+    <string name="daily_limit_label">เวลาต่อวัน (นาที)</string>
+    <string name="curfew_label">เวลางดใช้ หลังกี่โมง (0–23, 0 = ปิด)</string>
+    <string name="counted_apps_label">แอปที่นับเวลา (ติ๊กแอปที่ต้องการจำกัด)</string>
+    <string name="save">บันทึก</string>
+    <string name="saved">บันทึกแล้ว</string>
+
+    <!-- units -->
+    <string name="minutes">นาที</string>
+</resources>

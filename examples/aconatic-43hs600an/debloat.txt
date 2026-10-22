@@ -1,0 +1,70 @@
+# Aconatic 43HS600AN (43" Full HD, Thai market). ro.product.model "2K SMART TV", device stanford,
+# product KTC_ACONATIC_2K_AP_21V2, board/SoC mt5867, manufacturer KTC, brand ACONATIC.
+# Android TV 14 (API 34), firmware UKNV.260603.001, armeabi-v7a, about 913 MB RAM (MemTotal 935352 kB).
+# 1920x1080 panel, UI rendered at 1280x720 (wm size override), 213 dpi.
+#
+# Apply:   TV_HOST=<tv ip> tools/disable.sh examples/aconatic-43hs600an/debloat.txt
+#          (Windows) tools\disable.ps1 -TvHost <tv ip> examples\aconatic-43hs600an\debloat.txt
+# Undo:    TV_HOST=<tv ip> tools/restore.sh examples/aconatic-43hs600an/debloat.txt com.google.android.tvlauncher
+#          (Windows) tools\restore.ps1 -TvHost <tv ip> examples\aconatic-43hs600an\debloat.txt com.google.android.tvlauncher
+# Everything is DISABLED, not uninstalled. Comment out any line you want to keep.
+#
+# Stock launcher: com.google.android.tvlauncher (.MainActivity) -- Android TV, NOT Google TV launcherx.
+#   The install script disables it after the new launcher is running; it is not in this list.
+# Live TV: com.mediatek.wwtv.tvcenter (.nav.TurnkeyUiMainActivity).
+# Already disabled from the factory: com.electronic.manual, com.google.android.marvin.talkback.
+#
+# Tested the same day on one set, with the real remote: Home opens the new launcher, Netflix / YouTube /
+# YouTube Kids / AIS Play launch, HDMI 1/2 and Live TV switch from the launcher's Inputs menu, Live TV plays
+# the digital (DVB-T2) Thai free-to-air channels, the remote's app buttons and Source button still work.
+# Not a multi-day soak.
+#
+# Quirk -- a package that comes back at every boot (noted, not fought):
+# - com.cltv.fast re-enables itself on every reboot (Anoki / CLTV FAST TV-input service). pm disable-user
+#   reports success and `pm list packages -d` shows it disabled, but after a cold boot it is enabled again.
+#   It is left in the list below so the first pass still disables it; just expect it back after a reboot.
+#
+# KEEP, even though some names look like bloat (components checked with dumpsys package, never launched):
+# - com.mediatek.android.tv.globalkeyoverlay(.oem), com.ktc.serialport: remote hot keys / global keys.
+#   The remote's app and Source buttons keep working after the stock launcher is disabled because of these.
+# - com.mediatek.autopair: Bluetooth remote pairing.
+# - ktc.factorymenu.ui, mediatek.factorymenu.ui, com.ktc.tv.factory: factory / AT menus. NEVER launch
+#   (see PROMPT.md: opening one can flip a factory-mode flag). dumpsys package only.
+# - com.mediatek.tvinput (HDMI HW5/HW6, composite HW2, tuner HW0 digital DVB-T2 / HW1 analog),
+#   com.mediatek.tv.service, com.mediatek.wwtv.tvcenter, com.mediatek.wwtv.setupwizard,
+#   com.mediatek.wwtv.mediaplayer (USB media): the TV, tuner and input stack. TV_INPUT_HARDWARE layer --
+#   disabling any of these kills the HDMI/AV/tuner picture (No Signal) until a full restore + cold boot.
+# - com.google.android.tv.remote.service: Android TV remote / Bluetooth.
+# - com.google.android.katniss (Assistant / voice), com.google.android.apps.mediashell (Chromecast),
+#   com.mediatek.androidbox (Miracast / screen mirror): kept at the owner's request.
+# - com.google.android.gms, com.android.vending (Play Store), com.android.inputmethod.latin equivalent
+#   (com.google.android.inputmethod.latin, on-screen keyboard): never disable.
+# - com.dolby.android.audio.service: Dolby audio.
+#
+# Streaming apps left installed (used by the owner): com.netflix.ninja, com.google.android.youtube.tv,
+# com.google.android.youtube.tvkids, com.ais.mimo.aisplay.tv.
+
+# Manufacturer / partner telemetry and analytics
+tv.anoki.acr.anokiacroptin                       # Anoki ACR (automatic content recognition) opt-in
+com.google.android.feedback                       # Android feedback / usage reporting
+
+# Stock-home recommendation and ad rows, partner auto-install
+com.google.android.tvrecommendations             # recommendation and ad rows on the stock Android TV home
+com.mediatek.android.leanbacklauncher.partnercustomizer   # partner rows on the stock home
+com.google.android.partnersetup                  # partner setup / referrer
+android.autoinstalls.config.ktc.pai              # KTC preinstall auto-install config (PAI)
+
+# Retail demo, manual, stock web browser, backdrop, calendar sync
+fusion.android.tv.demo                           # retail demo mode
+com.internet.tvbrowser                           # preloaded web browser
+com.google.android.backdrop                      # Backdrop/Ambient screensaver (launcher has its own clock)
+com.google.android.syncadapters.calendar         # calendar sync (no account signed in)
+
+# Streaming / content apps not used in this home (by choice; keep the ones you use)
+com.amazon.amazonvideo.livingroom                # Prime Video
+com.truedmp.idtv                                 # TrueID TV (Thai OTT)
+com.bstar.intl.tv                                # BStar / BStation
+com.cltv.fast                                    # CLTV FAST (re-enables on every reboot, see quirk above)
+com.google.android.youtube.tvmusic               # YouTube Music
+com.google.android.videos                        # Google Play Movies & TV
+com.google.android.play.games                    # Google Play Games
