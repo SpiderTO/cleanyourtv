@@ -39,14 +39,18 @@ Everything is **disabled, never uninstalled**, and every step is reversible. Not
 All commands assume the TV's IP in `$env:TV_HOST` and the Python venv under `tools\venv`:
 
 ```powershell
-$env:TV_HOST = "192.168.9.107"     # this TV's IP at the time of work
+$env:TV_HOST = "192.168.9.106"     # this TV's IP at the time of work; DHCP can change it on reboot
 # one-time setup, if the venv is missing:
 python -m venv tools\venv
 tools\venv\Scripts\python.exe -m pip install -r tools\requirements.txt
 ```
 
-Network ADB must be on (Settings → Device Preferences → Developer options → *USB debugging* and
-*Network debugging*). The build also needs a JDK 17+ and the Android SDK (platform 34, build-tools
+Network ADB must be on. This firmware has no *Network debugging* switch, and *Wireless debugging*
+cannot be turned on while the TV is on Ethernet: turn on Settings → Device Preferences → Developer
+options → *USB debugging*, then **reboot**. adbd listens on port 5555 only from boot, so switching USB
+debugging on without a reboot leaves the port closed. Accept the "Allow USB debugging?" prompt on the
+first connection. Check the TV's IP (Settings → Network & Internet) after every reboot, since a
+refused port at an old address may simply be another device. The build also needs a JDK 17+ and the Android SDK (platform 34, build-tools
 34.0.0); a portable copy is under `tools\buildenv` on the machine this was built on.
 
 ## Re-enable an app
@@ -120,8 +124,10 @@ it; just expect it back after a reboot. Nothing else re-enabled across the reboo
 ## Closing ADB when finished
 
 Network ADB on port 5555 is plaintext. When you are done making changes, in the TV's
-Settings → Developer options: turn **USB debugging** and **Network debugging** off, **Revoke USB
-debugging authorisations**, then reboot. Verify the port is closed from this machine:
+Settings → Developer options: **Revoke USB debugging authorisations**, turn **USB debugging** off
+(before turning Developer options off), then **reboot**. Port 5555 stays open until the reboot, even
+with USB debugging off. After the reboot, confirm the TV's current IP and verify the port is closed
+from this machine:
 
 ```powershell
 tools\venv\Scripts\python.exe -I tools\adb-closed.py $env:TV_HOST
