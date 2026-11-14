@@ -111,6 +111,9 @@
          shelf above it. false makes the dock apps simply the first tiles of one plain grid (still in dock_apps
          order, no empty slots), with names under every tile and the glow behind every focused tile. -->
     <bool name="dock_row">true</bool>
+    <!-- The darker rounded band behind the dock row. false leaves the dock tiles on the backdrop, with the same
+         spacing. Can also be set with "dock_band" in a theme. -->
+    <bool name="dock_band">true</bool>
     <!-- A reorder button (two arrows) in the top bar. Off by default: reordering is also in the Settings
          button's long-press menu, so it needs no extra button on screen. -->
     <bool name="reorder_button">false</bool>

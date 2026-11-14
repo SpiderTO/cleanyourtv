@@ -71,6 +71,8 @@ final class Config {
     final boolean dockTitle;
     /** The dock as its own row: band, no names, parked low (config.xml dock_row). false: one plain grid. */
     final boolean dockRow;
+    /** The darker rounded band behind the dock row (config.xml dock_band). false: the tiles sit on the backdrop. */
+    final boolean dockBand;
     /** Names under every tile, dimmed until focused (config.xml always_show_names); the dock band grows for them. */
     final boolean alwaysShowNames;
     /** Reorder button in the top bar (config.xml reorder_button); the Settings long-press menu offers it either way. */
@@ -133,7 +135,7 @@ final class Config {
                    String liveTvAction, Map<String, String> launchActions, Map<String, String> appLabels,
                    Map<String, String> appBanners, String sourcePanelService, String sourcePanelAction, String inputAction,
                    int columns, int rowsBelowDock, boolean animations, boolean advancedEffects,
-                   boolean shamsiDate, String greetingName, boolean moduleCards, boolean reducedMotion, boolean dockTitle, boolean dockRow, boolean reorderButton, boolean showNetworkPill, boolean iconOnlyButtons, boolean libraryButton, int wifiLabelWidth, boolean alwaysShowNames, boolean wallpaperTrueColor, String vpnApp,
+                   boolean shamsiDate, String greetingName, boolean moduleCards, boolean reducedMotion, boolean dockTitle, boolean dockRow, boolean dockBand, boolean reorderButton, boolean showNetworkPill, boolean iconOnlyButtons, boolean libraryButton, int wifiLabelWidth, boolean alwaysShowNames, boolean wallpaperTrueColor, String vpnApp,
                    boolean showHomeSettingsShortcut, boolean showStats, boolean appLibrary, int backgroundColor, int skyIntensity,
                    int[] settingsKeycodes, boolean settingsKeyPanel, boolean wallpaperEnabled, File wallpaper, List<File> wallpapers,
                    int wallpaperRotationMinutes, int wallpaperDim, String wallpaperOrder, boolean overlayApplied,
@@ -162,6 +164,7 @@ final class Config {
         this.reducedMotion = reducedMotion;
         this.dockTitle = dockTitle;
         this.dockRow = dockRow;
+        this.dockBand = dockBand;
         this.reorderButton = reorderButton;
         this.showNetworkPill = showNetworkPill;
         this.iconOnlyButtons = iconOnlyButtons;
@@ -219,6 +222,7 @@ final class Config {
         boolean reducedMotion = res.getBoolean(R.bool.reduced_motion);
         boolean dockTitle = res.getBoolean(R.bool.dock_title);
         boolean dockRow = res.getBoolean(R.bool.dock_row);
+        boolean dockBand = res.getBoolean(R.bool.dock_band);
         boolean reorderButton = res.getBoolean(R.bool.reorder_button);
         boolean showNetworkPill = res.getBoolean(R.bool.show_network_pill);
         boolean iconOnlyButtons = res.getBoolean(R.bool.icon_only_buttons);
@@ -268,6 +272,7 @@ final class Config {
             reducedMotion = bool(json, "reduced_motion", reducedMotion);
             dockTitle = bool(json, "dock_title", dockTitle);
             dockRow = bool(json, "dock_row", dockRow);
+            dockBand = bool(json, "dock_band", dockBand);
             reorderButton = bool(json, "reorder_button", reorderButton);
             showNetworkPill = bool(json, "show_network_pill", showNetworkPill);
             iconOnlyButtons = bool(json, "icon_only_buttons", iconOnlyButtons);
@@ -343,7 +348,7 @@ final class Config {
                 packageMap(appBanners), panelService,
                 panelAction, inputAction,
                 Math.max(1, columns), Math.max(0, rowsBelow), animations, advancedEffects,
-                shamsi, greetingName, moduleCards, reducedMotion, dockTitle, dockRow, reorderButton, showNetworkPill, iconOnlyButtons, libraryButton, wifiLabelWidth, alwaysShowNames, wallpaperTrueColor, vpn, homeSettings, showStats, library, background,
+                shamsi, greetingName, moduleCards, reducedMotion, dockTitle, dockRow, dockBand, reorderButton, showNetworkPill, iconOnlyButtons, libraryButton, wifiLabelWidth, alwaysShowNames, wallpaperTrueColor, vpn, homeSettings, showStats, library, background,
                 Math.max(0, Math.min(100, skyIntensity)), settingsKeycodes, settingsKeyPanel, wallpaperEnabled, wallpaper,
                 wallpapers, rotationMinutes, wallpaperDim, wallpaperOrder, applied,
                 festival, inputKeycodes, appKeys, json == null ? Collections.emptyList() : raceCalendar(json), cinematic, ambientGlow,
