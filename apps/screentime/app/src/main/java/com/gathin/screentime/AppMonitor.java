@@ -3,6 +3,7 @@ package com.gathin.screentime;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
+import android.os.SystemClock;
 
 /**
  * Reads which package is in the foreground, from UsageStatsManager. Needs the PACKAGE_USAGE_STATS
@@ -12,6 +13,7 @@ import android.content.Context;
 final class AppMonitor {
     private final UsageStatsManager usm;
     private String lastForeground = "";
+    private long lastQuery = 0;
 
     AppMonitor(Context c) {
         usm = (UsageStatsManager) c.getApplicationContext().getSystemService(Context.USAGE_STATS_SERVICE);
@@ -21,8 +23,13 @@ final class AppMonitor {
     String foregroundPackage() {
         if (usm == null) return lastForeground;
         long now = System.currentTimeMillis();
-        // Look back a generous window so we never miss the last resume between polls.
-        UsageEvents events = usm.queryEvents(now - 10_000, now);
+        // The first query looks back to boot: after a cold start the service only runs once
+        // BOOT_COMPLETED reaches it (about 40 s on the 43HS600AN), and an app opened before that, say
+        // from the remote's YouTube button, must still be seen. Later queries pick up from the last one.
+        long from = lastQuery > 0 ? lastQuery - 2_000
+                : now - SystemClock.elapsedRealtime() - 60_000;
+        lastQuery = now;
+        UsageEvents events = usm.queryEvents(from, now);
         if (events == null) return lastForeground;
         UsageEvents.Event ev = new UsageEvents.Event();
         String latest = null;

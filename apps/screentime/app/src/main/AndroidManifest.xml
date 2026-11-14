@@ -83,7 +83,8 @@
         <receiver
             android:name=".BootReceiver"
             android:exported="true">
-            <intent-filter>
+            <!-- BOOT_COMPLETED goes to ~70 receivers one after another on this TV; ask to be early. -->
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
