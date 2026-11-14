@@ -114,6 +114,10 @@
     <!-- The darker rounded band behind the dock row. false leaves the dock tiles on the backdrop, with the same
          spacing. Can also be set with "dock_band" in a theme. -->
     <bool name="dock_band">true</bool>
+    <!-- Opacity of the tiles that are not focused, in percent (10 to 100), so a wallpaper shows through them; the
+         focused tile is always fully opaque. 100 (the default) draws every tile solid. Can also be set with
+         "tile_opacity" in a theme. -->
+    <integer name="tile_opacity">100</integer>
     <!-- A reorder button (two arrows) in the top bar. Off by default: reordering is also in the Settings
          button's long-press menu, so it needs no extra button on screen. -->
     <bool name="reorder_button">false</bool>
