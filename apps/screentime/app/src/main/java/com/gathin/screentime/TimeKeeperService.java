@@ -154,7 +154,7 @@ public class TimeKeeperService extends Service {
         }
         lastTick = now;
 
-        if (prefs.inCurfew(hour)) {   // e.g. 21:00 to 07:00, across midnight
+        if (prefs.inCurfew(hour)) {   // e.g. 21:00 to 08:00, across midnight
             block(LockActivity.REASON_CURFEW);
             return;
         }

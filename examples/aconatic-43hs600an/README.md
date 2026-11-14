@@ -25,7 +25,7 @@ Everything is **disabled, never uninstalled**, and every step is reversible. Not
   launcher drops the CPU figure by design rather than show a blank. Memory and storage update live.
 - **Screen time for kids:** the "TV Time" app from [`apps/screentime`](../../apps/screentime)
   (`com.gathin.screentime`). YouTube and YouTube Kids share **2 hours a day**, with a warning
-  **5 minutes** before the end and a curfew from **21:00 to 07:00** (across midnight); a full-screen
+  **5 minutes** before the end and a curfew from **21:00 to 08:00** (across midnight); a full-screen
   lock then needs the parent's 4-digit PIN. Every `com.google.android.youtube*` package counts once
   YouTube is ticked, so the remote's YouTube button, the tiles and YouTube Music all hit the same
   limit. An optional strict mode blocks every launchable app once the time is up, except Home, live

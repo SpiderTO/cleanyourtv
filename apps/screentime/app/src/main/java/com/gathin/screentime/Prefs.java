@@ -39,7 +39,7 @@ final class Prefs {
     static final int DEFAULT_LIMIT_MIN = 120;   // 2 hours per day (YouTube + YouTube Kids)
     static final int DEFAULT_WARN_MIN = 5;      // warn 5 minutes before the limit
     static final int DEFAULT_CURFEW_HOUR = 21;  // curfew from 21:00 ...
-    static final int DEFAULT_CURFEW_END_HOUR = 7;   // ... to 07:00 (start == end: off)
+    static final int DEFAULT_CURFEW_END_HOUR = 8;   // ... to 08:00 (start == end: off)
 
     private final SharedPreferences sp;
 
@@ -96,7 +96,7 @@ final class Prefs {
         sp.edit().putInt(KEY_CURFEW_END_HOUR, h).apply();
     }
 
-    /** True when `hour` falls in [start, end), wrapping past midnight when start > end (21 -> 7). */
+    /** True when `hour` falls in [start, end), wrapping past midnight when start > end (21 -> 8). */
     boolean inCurfew(int hour) {
         int start = curfewHour(), end = curfewEndHour();
         if (start == end) return false;
