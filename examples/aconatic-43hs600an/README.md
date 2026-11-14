@@ -124,6 +124,10 @@ back to the plain black background, push a theme without a wallpaper or clear th
 it shows as disabled, but a cold boot brings it back. It is in `debloat.txt` so the first pass disables
 it; just expect it back after a reboot. Nothing else re-enabled across the reboot test.
 
+What does stick is removing it for the user: `pm uninstall -k --user 0 com.cltv.fast` survived a cold
+boot (tested 2026-11-14), and `cmd package install-existing com.cltv.fast` brings it back. It starts a
+foreground service at boot, so removing it helps: BOOT_COMPLETED finished in 25 s instead of 36 to 43 s.
+
 ## Closing ADB when finished
 
 Network ADB on port 5555 is plaintext. When you are done making changes, in the TV's
