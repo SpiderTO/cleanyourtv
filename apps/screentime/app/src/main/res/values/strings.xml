@@ -9,7 +9,7 @@
     <string name="time_up_title">หมดเวลาแล้ว</string>
     <string name="time_up_body">วันนี้ดูครบตามเวลาที่กำหนดแล้ว พรุ่งนี้ค่อยดูต่อนะ</string>
     <string name="curfew_title">เลยเวลานอนแล้ว</string>
-    <string name="curfew_body">หลัง %1$02d:00 น. งดใช้แอปที่กำหนด ถ้าจะดูต่อให้ผู้ปกครองใส่ PIN</string>
+    <string name="curfew_body">ช่วง %1$02d:00–%2$02d:00 น. งดใช้แอปที่กำหนด ถ้าจะดูต่อให้ผู้ปกครองใส่ PIN</string>
     <string name="enter_pin_to_continue">ใส่ PIN ผู้ปกครองเพื่อดูต่อ</string>
     <string name="back_home">กลับหน้าหลัก</string>
 
@@ -32,13 +32,17 @@
     <string name="open_settings">ตั้งค่า (ต้องใส่ PIN)</string>
     <string name="give_more_time">ให้เวลาเพิ่มวันนี้ (รีเซ็ตเวลาที่ใช้ไป)</string>
     <string name="first_run_title">ตั้งค่าครั้งแรก: ตั้ง PIN ผู้ปกครอง</string>
+    <string name="need_overlay">ยังไม่ได้รับสิทธิ์แสดงทับแอปอื่น หน้าล็อกจะเปิดไม่ขึ้น ให้สิทธิ์ SYSTEM_ALERT_WINDOW ผ่าน ADB</string>
     <string name="need_usage_access">ยังไม่ได้รับสิทธิ์ดูการใช้งานแอป การจับเวลาจะยังไม่ทำงาน ให้สิทธิ์ผ่าน ADB แล้วเปิดแอปใหม่</string>
 
     <!-- settings -->
     <string name="settings_title">ตั้งค่า เวลาดูทีวี</string>
     <string name="change_pin">เปลี่ยน PIN</string>
     <string name="daily_limit_label">เวลาต่อวัน (นาที)</string>
-    <string name="curfew_label">เวลางดใช้ หลังกี่โมง (0–23, 0 = ปิด)</string>
+    <string name="curfew_label">เวลางดใช้ เริ่มกี่โมง (0–23)</string>
+    <string name="curfew_end_label">เวลางดใช้ ถึงกี่โมงเช้า (0–23, เท่ากับเวลาเริ่ม = ปิด)</string>
+    <string name="strict_label">เมื่อหมดเวลาหรือช่วงงดใช้ ปิดทุกแอปยกเว้นแอปที่อนุญาตด้านล่าง</string>
+    <string name="allowed_apps_label">แอปที่ยังใช้ได้เมื่อหมดเวลา (หน้า Home ใช้ได้เสมอ)</string>
     <string name="counted_apps_label">แอปที่นับเวลา (ติ๊กแอปที่ต้องการจำกัด)</string>
     <string name="save">บันทึก</string>
     <string name="saved">บันทึกแล้ว</string>

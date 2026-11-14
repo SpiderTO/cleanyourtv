@@ -25,12 +25,15 @@ Everything is **disabled, never uninstalled**, and every step is reversible. Not
   launcher drops the CPU figure by design rather than show a blank. Memory and storage update live.
 - **Screen time for kids:** the "TV Time" app from [`apps/screentime`](../../apps/screentime)
   (`com.gathin.screentime`). YouTube and YouTube Kids share **2 hours a day**, with a warning
-  **5 minutes** before the end and a curfew at **21:00**; a full-screen lock then needs the parent's
-  4-digit PIN. In kids mode the TV Settings app is blocked too. Parent mode (PIN) lifts the limit
+  **5 minutes** before the end and a curfew from **21:00 to 07:00** (across midnight); a full-screen
+  lock then needs the parent's 4-digit PIN. Every `com.google.android.youtube*` package counts once
+  YouTube is ticked, so the remote's YouTube button, the tiles and YouTube Music all hit the same
+  limit. An optional strict mode blocks every launchable app once the time is up, except Home, live
+  TV and the inputs (the allow list is editable). In kids mode the TV Settings app is blocked too. Parent mode (PIN) lifts the limit
   until the TV goes to standby; waking from standby is always kids mode again. Install with
   `apps\screentime\build-and-install.ps1 -TvHost $env:TV_HOST`, which also grants the two app-ops it
   needs (`GET_USAGE_STATS`, `SYSTEM_ALERT_WINDOW`). The PIN is set on first launch; change the PIN,
-  daily minutes, curfew hour and counted apps in its Settings (PIN required).
+  daily minutes, curfew window, counted apps and strict mode in its Settings (PIN required).
 - **Kept, by request:** Netflix, YouTube, YouTube Kids, AIS Play, Google Assistant (voice), Chromecast,
   Miracast, the whole tuner/HDMI/AV input stack, Play Store, Play Services, the on-screen keyboard.
 

@@ -9,6 +9,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.Handler;
@@ -16,11 +18,13 @@ import android.os.IBinder;
 import android.os.Looper;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The always-on watcher. Once a second it asks which app is in the foreground and, while in kids
  * mode, counts time spent in the counted apps, warns near the limit, and throws up the lock screen
- * when the daily limit is reached, after the curfew hour, or when a blocked settings screen opens.
+ * when the daily limit is reached, in the curfew window, or when a blocked settings screen opens.
  *
  * Parent mode (set by entering the PIN) turns all of that off until the TV goes to standby, when the
  * screen-off receiver drops back to kids mode.
@@ -35,6 +39,9 @@ public class TimeKeeperService extends Service {
     private AppMonitor monitor;
     private String warnedDay = "";
     private long lastTick = 0;
+    // Strict-mode verdict for the last foreground package, so the package lookups run once per app.
+    private String strictPkg = null;
+    private boolean strictBlocked = false;
 
     // TV and phone settings apps blocked in kids mode.
     private static final String[] SETTINGS_PKGS = {
@@ -127,8 +134,16 @@ public class TimeKeeperService extends Service {
             }
         }
 
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+
         if (!prefs.isCounted(fg)) {
-            return;   // digital TV, Netflix, our own screens, Home: not counted, not limited
+            // Digital TV, Netflix, our own screens, Home: not counted. In strict mode, once the time is
+            // up or in the curfew, everything launchable outside the allow list is blocked as well.
+            if (prefs.strictWhenBlocked() && blockedInStrictMode(fg)) {
+                if (prefs.inCurfew(hour)) block(LockActivity.REASON_CURFEW);
+                else if (prefs.usedSecondsToday() >= prefs.limitSeconds()) block(LockActivity.REASON_TIME_UP);
+            }
+            return;
         }
 
         // A counted app is open in kids mode.
@@ -139,9 +154,7 @@ public class TimeKeeperService extends Service {
         }
         lastTick = now;
 
-        int curfew = prefs.curfewHour();
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (curfew > 0 && hour >= curfew) {   // 0 (or less) means the curfew is off
+        if (prefs.inCurfew(hour)) {   // e.g. 21:00 to 07:00, across midnight
             block(LockActivity.REASON_CURFEW);
             return;
         }
@@ -159,6 +172,33 @@ public class TimeKeeperService extends Service {
             warnedDay = Prefs.today();
             showWarning((int) Math.ceil(remaining / 60.0));
         }
+    }
+
+    /** Strict mode: would `pkg` be blocked once the time is up? Only apps with a launcher entry are,
+     *  so system dialogs, the keyboard and the remote service keep working; Home, this app and the
+     *  parent's allow list (live TV and inputs by default) stay open. */
+    private boolean blockedInStrictMode(String pkg) {
+        if (pkg == null || pkg.isEmpty() || pkg.equals(getPackageName())) return false;
+        if (pkg.equals(strictPkg)) return strictBlocked;
+        boolean blocked = !prefs.allowedWhenBlocked().contains(pkg) && !homePackages().contains(pkg)
+                && isLaunchable(pkg);
+        strictPkg = pkg;
+        strictBlocked = blocked;
+        return blocked;
+    }
+
+    private Set<String> homePackages() {
+        Set<String> out = new HashSet<>();
+        Intent home = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME);
+        for (ResolveInfo ri : getPackageManager().queryIntentActivities(home, 0)) {
+            if (ri.activityInfo != null) out.add(ri.activityInfo.packageName);
+        }
+        return out;
+    }
+
+    private boolean isLaunchable(String pkg) {
+        PackageManager pm = getPackageManager();
+        return pm.getLeanbackLaunchIntentForPackage(pkg) != null || pm.getLaunchIntentForPackage(pkg) != null;
     }
 
     /** A big, full-screen heads-up that the daily time is nearly gone. Our own activity, so the TV can

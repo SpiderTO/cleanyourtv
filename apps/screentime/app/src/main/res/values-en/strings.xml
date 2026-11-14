@@ -8,7 +8,7 @@
     <string name="time_up_title">Time\'s up</string>
     <string name="time_up_body">You\'ve used all of today\'s time. Come back tomorrow.</string>
     <string name="curfew_title">Past bedtime</string>
-    <string name="curfew_body">After %1$02d:00 the chosen apps are off. A parent can enter the PIN to continue.</string>
+    <string name="curfew_body">From %1$02d:00 to %2$02d:00 the chosen apps are off. A parent can enter the PIN to continue.</string>
     <string name="enter_pin_to_continue">Enter the parent PIN to continue</string>
     <string name="back_home">Back to Home</string>
 
@@ -29,12 +29,16 @@
     <string name="open_settings">Settings (PIN required)</string>
     <string name="give_more_time">Give more time today (reset used time)</string>
     <string name="first_run_title">First run: set a parent PIN</string>
+    <string name="need_overlay">Display over other apps is not granted, so the lock screen cannot open. Grant SYSTEM_ALERT_WINDOW over ADB.</string>
     <string name="need_usage_access">Usage access not granted yet; timing is off. Grant it over ADB and reopen.</string>
 
     <string name="settings_title">TV Time settings</string>
     <string name="change_pin">Change PIN</string>
     <string name="daily_limit_label">Minutes per day</string>
-    <string name="curfew_label">Curfew hour (0–23, 0 = off)</string>
+    <string name="curfew_label">Curfew starts at (hour, 0–23)</string>
+    <string name="curfew_end_label">Curfew ends at (hour, 0–23; same as start = off)</string>
+    <string name="strict_label">When time is up or in the curfew, block every app except the ones allowed below</string>
+    <string name="allowed_apps_label">Apps still allowed when time is up (Home always is)</string>
     <string name="counted_apps_label">Counted apps (tick the ones to limit)</string>
     <string name="save">Save</string>
     <string name="saved">Saved</string>

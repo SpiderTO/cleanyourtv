@@ -26,8 +26,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Parent settings, reached only after the PIN. Changes the PIN, the daily minutes, the curfew hour,
- * and which apps are counted. Everything is typed with the remote's number keys or toggled with the
+ * Parent settings, reached only after the PIN. Changes the PIN, the daily minutes, the curfew window,
+ * which apps are counted, and strict mode with its allow list. Everything is typed with the remote's number keys or toggled with the
  * D-pad, so no touch is needed.
  */
 public class SettingsActivity extends Activity {
@@ -35,7 +35,10 @@ public class SettingsActivity extends Activity {
     private LinearLayout column;
     private EditText limitField;
     private EditText curfewField;
+    private EditText curfewEndField;
+    private CheckBox strictCheck;
     private final Map<String, CheckBox> appChecks = new LinkedHashMap<>();
+    private final Map<String, CheckBox> allowChecks = new LinkedHashMap<>();
 
     @Override
     protected void onCreate(Bundle b) {
@@ -71,6 +74,8 @@ public class SettingsActivity extends Activity {
 
         addLabel(getString(R.string.curfew_label));
         curfewField = addNumberField(String.valueOf(prefs.curfewHour()));
+        addLabel(getString(R.string.curfew_end_label));
+        curfewEndField = addNumberField(String.valueOf(prefs.curfewEndHour()));
 
         addGap();
         addButton(getString(R.string.change_pin), () ->
@@ -79,16 +84,18 @@ public class SettingsActivity extends Activity {
 
         addGap();
         addLabel(getString(R.string.counted_apps_label));
+        Map<String, String> apps = launchableApps();
         Set<String> counted = prefs.countedApps();
-        for (Map.Entry<String, String> app : launchableApps().entrySet()) {
-            CheckBox cb = new CheckBox(this);
-            cb.setText(app.getValue());
-            cb.setTextColor(Color.WHITE);
-            cb.setTextSize(16);
-            cb.setChecked(counted.contains(app.getKey()));
-            cb.setPadding(dp(8), dp(10), dp(8), dp(10));
-            column.addView(cb);
-            appChecks.put(app.getKey(), cb);
+        for (Map.Entry<String, String> app : apps.entrySet()) {
+            appChecks.put(app.getKey(), addCheck(app.getValue(), counted.contains(app.getKey())));
+        }
+
+        addGap();
+        strictCheck = addCheck(getString(R.string.strict_label), prefs.strictWhenBlocked());
+        addLabel(getString(R.string.allowed_apps_label));
+        Set<String> allowed = prefs.allowedWhenBlocked();
+        for (Map.Entry<String, String> app : apps.entrySet()) {
+            allowChecks.put(app.getKey(), addCheck(app.getValue(), allowed.contains(app.getKey())));
         }
 
         addGap();
@@ -98,13 +105,20 @@ public class SettingsActivity extends Activity {
     private void save() {
         prefs.setLimitMinutes(parseInt(limitField, prefs.limitMinutes()));
         prefs.setCurfewHour(clampHour(parseInt(curfewField, prefs.curfewHour())));
-        Set<String> counted = new HashSet<>();
-        for (Map.Entry<String, CheckBox> e : appChecks.entrySet()) {
-            if (e.getValue().isChecked()) counted.add(e.getKey());
-        }
-        prefs.setCountedApps(counted);
+        prefs.setCurfewEndHour(clampHour(parseInt(curfewEndField, prefs.curfewEndHour())));
+        prefs.setCountedApps(checked(appChecks));
+        prefs.setStrictWhenBlocked(strictCheck.isChecked());
+        prefs.setAllowedWhenBlocked(checked(allowChecks));
         Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private static Set<String> checked(Map<String, CheckBox> checks) {
+        Set<String> out = new HashSet<>();
+        for (Map.Entry<String, CheckBox> e : checks.entrySet()) {
+            if (e.getValue().isChecked()) out.add(e.getKey());
+        }
+        return out;
     }
 
     /** Package -> label for every launchable app on the TV (leanback or ordinary), minus ourselves. */
@@ -124,7 +138,7 @@ public class SettingsActivity extends Activity {
             out.put(pkg, label != null ? label.toString() : pkg);
         }
         // Make sure the defaults are always offered even if not currently launchable-visible.
-        for (String def : new String[]{Prefs.YOUTUBE, Prefs.YOUTUBE_KIDS}) {
+        for (String def : new String[]{Prefs.YOUTUBE, Prefs.YOUTUBE_KIDS, Prefs.DEFAULT_ALLOWED[0]}) {
             if (!out.containsKey(def)) out.put(def, labelOf(def));
         }
         return out;
@@ -157,6 +171,17 @@ public class SettingsActivity extends Activity {
         t.setTextSize(15);
         t.setPadding(0, dp(12), 0, dp(4));
         column.addView(t);
+    }
+
+    private CheckBox addCheck(String label, boolean on) {
+        CheckBox cb = new CheckBox(this);
+        cb.setText(label);
+        cb.setTextColor(Color.WHITE);
+        cb.setTextSize(16);
+        cb.setChecked(on);
+        cb.setPadding(dp(8), dp(10), dp(8), dp(10));
+        column.addView(cb);
+        return cb;
     }
 
     private EditText addNumberField(String value) {

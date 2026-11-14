@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * The full-screen block shown over a counted app when the daily limit is reached or the curfew hour
- * has passed. The only way back into the app is the parent PIN (which switches to parent mode);
+ * The full-screen block shown over a counted app when the daily limit is reached or during the
+ * curfew window. The only way back into the app is the parent PIN (which switches to parent mode);
  * anything else sends the child to the Home screen.
  */
 public class LockActivity extends Activity {
@@ -52,7 +52,7 @@ public class LockActivity extends Activity {
         column.addView(title);
 
         TextView body = new TextView(this);
-        body.setText(curfew ? getString(R.string.curfew_body, prefs.curfewHour())
+        body.setText(curfew ? getString(R.string.curfew_body, prefs.curfewHour(), prefs.curfewEndHour())
                 : getString(R.string.time_up_body));
         body.setTextColor(0xFFC9CDD4);
         body.setTextSize(20);

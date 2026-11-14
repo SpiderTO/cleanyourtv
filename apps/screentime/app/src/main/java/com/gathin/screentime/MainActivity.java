@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Process;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -67,6 +68,10 @@ public class MainActivity extends Activity {
 
         if (!hasUsageAccess()) {
             addText(getString(R.string.need_usage_access), 15, 0xFFFFB020);
+        }
+        if (!Settings.canDrawOverlays(this)) {
+            // Without it Android 10+ refuses the lock screen started from the background service.
+            addText(getString(R.string.need_overlay), 15, 0xFFFFB020);
         }
 
         addGap();
